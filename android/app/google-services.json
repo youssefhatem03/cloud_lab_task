@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "590829934393",
+    "project_id": "cloud-lab-task-2dc1b",
+    "storage_bucket": "cloud-lab-task-2dc1b.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:590829934393:android:1ae2528dc58befefa5bae8",
+        "android_client_info": {
+          "package_name": "com.example.cloud_lab_task"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBYSf3-T2uN5N-iTV-WyhIwFiL5U9_Fwtk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,41 @@
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "cloud-lab-task-2dc1b",
+          "appId": "1:590829934393:android:1ae2528dc58befefa5bae8",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "cloud-lab-task-2dc1b",
+          "configurations": {
+            "android": "1:590829934393:android:1ae2528dc58befefa5bae8",
+            "ios": "1:590829934393:ios:df474d8d09020db5a5bae8",
+            "web": "1:590829934393:web:413d75814d38bae3a5bae8"
+          }
+        }
+      }
+    }
+  },
+  "firestore": {
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
+  },
+  "hosting": {
+    "public": "public",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}
