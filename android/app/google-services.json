@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:590829934393:android:1ae2528dc58befefa5bae8",
         "android_client_info": {
-          "package_name": "com.example.cloud_lab_task"
+          "package_name": "com.cloud.app"
         }
       },
       "oauth_client": [],
