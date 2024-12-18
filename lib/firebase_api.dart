@@ -1,10 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
 import 'Model/notification_model.dart';
 
 class FirebaseApi {
@@ -13,14 +10,12 @@ class FirebaseApi {
   final _firestore = FirebaseFirestore.instance;
   static Set<String> subscribedTopics = {};
 
-  // Background message handler
   static Future<void> _backgroundMessageHandler(RemoteMessage message) async {
     await Firebase.initializeApp();
     print("Handling a background message: ${message.messageId}");
     _handleTopicMessage(message);
   }
 
-  // Shared method to handle topic-related messages
   static _handleTopicMessage(RemoteMessage message) {
     if (message.data.containsKey('subscribeToTopic')) {
       print("subscribeToTopic message received");
@@ -94,10 +89,8 @@ class FirebaseApi {
 
   Future<void> _saveNotificationToFirestore(RemoteMessage message) async {
     try {
-      // Convert RemoteMessage to NotificationModel
       final notification = NotificationModel.fromRemoteMessage(message);
 
-      // Save to Firestore
       await _firestore.collection('notifications').add(
         notification.toFirestore(),
       );
@@ -138,7 +131,6 @@ class FirebaseApi {
     }
   }
 
-  // Modify the foreground message handling
   void initForegroundMessageHandling(GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey) {
     FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
       print('Received foreground message');

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:intl/intl.dart';
-
-import '../Model/notification_model.dart'; // Ensure you have this model
+import '../Model/notification_model.dart';
 
 class NotificationsScreen extends StatefulWidget {
   const NotificationsScreen({Key? key}) : super(key: key);
@@ -18,11 +16,11 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Notifications'),
+        title: const Text('Notifications'),
         centerTitle: true,
         actions: [
           IconButton(
-            icon: Icon(Icons.refresh),
+            icon: const Icon(Icons.refresh),
             onPressed: () {
               setState(() {}); // Force refresh
             },
@@ -37,14 +35,14 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
         builder: (context, snapshot) {
           // Handle loading state
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           }
 
           // Handle error state
           if (snapshot.hasError) {
-            return Center(
+            return const Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -54,7 +52,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                     size: 60,
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top: 16),
+                    padding: EdgeInsets.only(top: 16),
                     child: Text('Error loading notifications'),
                   )
                 ],
@@ -62,9 +60,8 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
             );
           }
 
-          // Handle empty state
           if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-            return Center(
+            return const Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -82,15 +79,12 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
             );
           }
 
-          // Build list of notifications
           return ListView.builder(
             itemCount: snapshot.data!.docs.length,
             itemBuilder: (context, index) {
-              // Convert document to NotificationModel
               final notificationDoc = snapshot.data!.docs[index];
               final notificationData = notificationDoc.data() as Map<String, dynamic>;
 
-              // Create NotificationModel from Firestore data
               final notification = NotificationModel(
                 id: notificationData['id'] ?? '',
                 title: notificationData['title'] ?? 'No Title',
@@ -99,27 +93,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                 timestamp: DateTime.parse(notificationData['timestamp']),
               );
 
-              return Dismissible(
-                key: Key(notification.id),
-                background: Container(
-                  color: Colors.red,
-                  alignment: Alignment.centerRight,
-                  padding: EdgeInsets.symmetric(horizontal: 20),
-                  child: Icon(
-                    Icons.delete,
-                    color: Colors.white,
-                  ),
-                ),
-                direction: DismissDirection.endToStart,
-                onDismissed: (direction) {
-                  // Delete notification from Firestore
-                  _firestore
-                      .collection('notifications')
-                      .doc(notificationDoc.id)
-                      .delete();
-                },
-                child: NotificationTile(notification: notification),
-              );
+              return NotificationTile(notification: notification);
             },
           );
         },
@@ -136,13 +110,13 @@ class NotificationTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
       elevation: 2,
       child: ListTile(
-        contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         title: Text(
           notification.title,
-          style: TextStyle(
+          style: const TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 16,
           ),
@@ -150,16 +124,17 @@ class NotificationTile extends StatelessWidget {
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 5),
+            const SizedBox(height: 5),
             Text(
               notification.body,
-              style: TextStyle(color: Colors.black87),
+              style: const TextStyle(color: Colors.black87),
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             Text(
               "${notification.data.keys.first} : ${notification.data.values.first}",
-              style: TextStyle(
-                color: Colors.grey,
+              style: const TextStyle(
+                color: Colors.black,
+                fontWeight: FontWeight.w800,
                 fontSize: 12,
               ),
             ),
@@ -167,7 +142,7 @@ class NotificationTile extends StatelessWidget {
         ),
         leading: CircleAvatar(
           backgroundColor: Colors.blue.shade50,
-          child: Icon(
+          child: const Icon(
             Icons.notifications,
             color: Colors.blue,
           ),
